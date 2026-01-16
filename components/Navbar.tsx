@@ -62,7 +62,7 @@ const Navbar: React.FC = () => {
           Portfolio
         </a>
         <a 
-          href="https://blog.naver.com/PostList.naver?blogId=yszoo1467&from=postList&categoryNo=41"
+          href="https://blog.naver.com/PostList.naver?blogId=yszoo1467&from=postList&categoryNo=8"
           target="_blank" 
           rel="noopener noreferrer" 
           className="bg-white text-black px-6 py-2.5 rounded-full font-bold text-sm hover:bg-slate-200 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.2)]"

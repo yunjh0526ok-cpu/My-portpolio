@@ -195,31 +195,30 @@ const Diagnostics: React.FC = () => {
     }
 
     try {
-        const model = ai.models.getGenerativeModel({ 
-            model: "gemini-3-flash-preview", 
-            systemInstruction: `
-                당신은 'Ethics-Core AI'의 수석 청렴/법률 전문 상담관입니다.
-                사용자는 부패, 갑질, 직장 내 괴롭힘 등으로 고통받고 있거나 윤리적 딜레마에 빠진 상태입니다.
+        const response = await ai.models.generateContent({
+            model: "gemini-3-flash-preview",
+            contents: userMsg,
+            config: {
+                systemInstruction: `
+                    당신은 'Ethics-Core AI'의 수석 청렴/법률 전문 상담관입니다.
+                    사용자는 부패, 갑질, 직장 내 괴롭힘 등으로 고통받고 있거나 윤리적 딜레마에 빠진 상태입니다.
 
-                [행동 지침]
-                1. **웹 검색 필수 (Google Search)**: 사용자의 질문에 대해 반드시 최신 '대한민국 법령(국가법령정보센터)', '대법원 판례', '권익위 가이드라인' 등을 검색하여 팩트에 기반한 정보를 제공하십시오.
-                2. **따뜻한 공감**: 법률적 정보 제공 전에, 사용자의 힘든 상황에 대해 진심으로 공감하고 위로하는 멘트를 먼저 하십시오.
-                3. **상세하고 친절한 설명**: 법률 용어를 쉽게 풀어서 설명하고, 구체적인 행동 요령(증거 확보 방법, 신고처 등)을 단계별로 안내하십시오.
-                4. **구조화된 답변**: 
-                   - [공감과 위로]
-                   - [관련 법령 및 위반 여부 판단]
-                   - [유사 판례 또는 사례]
-                   - [실질적 해결 솔루션]
-                순서로 답변하십시오.
-            `,
-            tools: [{ googleSearch: {} }]
-        });
-
-        const result = await model.generateContent({
-            contents: [{ role: 'user', parts: [{ text: userMsg }] }]
+                    [행동 지침]
+                    1. **웹 검색 필수 (Google Search)**: 사용자의 질문에 대해 반드시 최신 '대한민국 법령(국가법령정보센터)', '대법원 판례', '권익위 가이드라인' 등을 검색하여 팩트에 기반한 정보를 제공하십시오.
+                    2. **따뜻한 공감**: 법률적 정보 제공 전에, 사용자의 힘든 상황에 대해 진심으로 공감하고 위로하는 멘트를 먼저 하십시오.
+                    3. **상세하고 친절한 설명**: 법률 용어를 쉽게 풀어서 설명하고, 구체적인 행동 요령(증거 확보 방법, 신고처 등)을 단계별로 안내하십시오.
+                    4. **구조화된 답변**: 
+                       - [공감과 위로]
+                       - [관련 법령 및 위반 여부 판단]
+                       - [유사 판례 또는 사례]
+                       - [실질적 해결 솔루션]
+                    순서로 답변하십시오.
+                `,
+                tools: [{ googleSearch: {} }]
+            }
         });
         
-        const responseText = result.response.text();
+        const responseText = response.text || "죄송합니다. 답변을 생성할 수 없습니다.";
         setChatLog(prev => [...prev, { role: 'ai', text: responseText }]);
 
     } catch (error) {

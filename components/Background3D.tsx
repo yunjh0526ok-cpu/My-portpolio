@@ -3,36 +3,6 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Stars, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Workaround for missing R3F types in JSX.IntrinsicElements
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      pointLight: any;
-      instancedMesh: any;
-      sphereGeometry: any;
-      meshStandardMaterial: any;
-      ambientLight: any;
-      spotLight: any;
-      fog: any;
-    }
-  }
-}
-
-// Augment 'react' module's JSX namespace for React 18+ support
-declare module 'react' {
-  namespace JSX {
-    interface IntrinsicElements {
-      pointLight: any;
-      instancedMesh: any;
-      sphereGeometry: any;
-      meshStandardMaterial: any;
-      ambientLight: any;
-      spotLight: any;
-      fog: any;
-    }
-  }
-}
-
 const OrganicWave = () => {
   const count = 2000;
   const mesh = useRef<THREE.InstancedMesh>(null);
